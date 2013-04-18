@@ -14,7 +14,7 @@ Import-Module (Join-Path $modulesPath global_config.psm1) -Force
 
     Describe "package_lib" {
 <#		
-		It "checks to see if lib\NewRelic.Api.Agent.dll exists" {
+		It "checks to see if lib\my.dll exists" {
 			(Test-Path $PackageRoot\lib\my.dll) | Should Be $true
 		}
 		

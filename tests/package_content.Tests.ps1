@@ -78,7 +78,7 @@ Import-Module (Join-Path $modulesPath global_config.psm1) -Force
 		
 		Context "When .nuspec file exists and has a file element" {
 			[xml] $nuspecXml = Get-Content $PackageRoot\*.nuspec
-			$ns = @{ e = "urn:newrelic-config" }
+			$ns = @{ e = "urn:my-config" }
 			$ns = New-Object Xml.XmlNamespaceManager $nuspecXml.NameTable
 			$ns.AddNamespace( "e", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" )
 		
