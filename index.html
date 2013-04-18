@@ -41,14 +41,14 @@ you have my custom things built into your packages you'll need those things to b
 
 <h2>Basic usage</h2>
 
-<p><strong>NOTE</strong>: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the <a href="">fixture apps</a> requires that you run a <strong>x86</strong> PowerShell console in order for you to be able to load the module. The module is loaded via <a href="">Setup.ps1</a> and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.</p>
+<p><strong>NOTE</strong>: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the <a href="https://github.com/nickfloyd/nuget-test/tree/master/fixtures">fixture apps</a> requires that you run a <strong>x86</strong> PowerShell console in order for you to be able to load the module. The module is loaded via <a href="https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1">Setup.ps1</a> and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.</p>
 
-<p>1 Clone the project into your package directory (where your .nuspec file and package files are).</p>
+<p>1 Clone the project into your package directory (where your .nuspec file and package files are). If for whatever reason you want to keep the nuget-test project as a "git" repo  then simple remove "remove-item nuget-test/.git -Recurse -Force" from the command below.</p>
 
-<pre><code>git clone http://github.com/nickfloyd/nuget-test.git
+<pre><code>git clone https://github.com/nickfloyd/nuget-test.git; remove-item nuget-test/.git -Recurse -Force
 </code></pre>
 
-<p>2 Run <a href="">Setup.ps1</a> in the root of the nuget-test directory in an <strong>x86</strong> instance of PowerShell.</p>
+<p>2 Run <a href="https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1">Setup.ps1</a> in the root of the nuget-test directory in an <strong>x86</strong> instance of PowerShell.</p>
 
 <pre><code>PS&gt; .\setup.ps1
 </code></pre>
@@ -102,11 +102,11 @@ you have my custom things built into your packages you'll need those things to b
 <li>
 <a href="http://msdn.microsoft.com/en-us/library/ff637750(v=azure.10">PowerShell 2.0</a>.aspx) or greater (running x86 if you need to use the PackageManagement Cmdlets)</li>
 <li>
-<a href="https://github.com/pester/Pester">Pester</a> (added via <a href="">Setup.ps1</a>)</li>
+<a href="https://github.com/pester/Pester">Pester</a> (added via <a href="https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1">Setup.ps1</a>)</li>
 <li>
-<a href="http://psget.net/">PsGet</a> (dependency for Pester, added via <a href="">Setup.ps1</a>)</li>
+<a href="http://psget.net/">PsGet</a> (dependency for Pester, added via <a href="https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1">Setup.ps1</a>)</li>
 <li>
-<a href="https://github.com/mattifestation/PowerSploit">PETools</a> (if you need to dig into your compiled libraries, so on, added via <a href="">Setup.ps1</a>)</li>
+<a href="https://github.com/mattifestation/PowerSploit">PETools</a> (if you need to dig into your compiled libraries, so on, added via <a href="https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1">Setup.ps1</a>)</li>
 <li>A nuget package to test</li>
 </ul><h2>Known Limitations</h2>
 
