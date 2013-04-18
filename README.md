@@ -15,9 +15,9 @@ Basic usage
 
 **NOTE**: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the [fixture apps](https://github.com/nickfloyd/nuget-test/tree/master/fixtures) requires that you run a **x86** PowerShell console in order for you to be able to load the module. The module is loaded via [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1) and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.
 
-1 Clone the project into your package directory (where your .nuspec file and package files are).
+1 Clone the project into your package directory (where your .nuspec file and package files are). If for whatever reason you want to keep the nuget-test project as a "git" repo  then simple remove "remove-item nuget-test/.git -Recurse -Force" from the command below.
 
-    git clone http://github.com/nickfloyd/nuget-test.git
+    git clone https://github.com/nickfloyd/nuget-test.git; remove-item nuget-test/.git -Recurse -Force
 
 2 Run [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1) in the root of the nuget-test directory in an **x86** instance of PowerShell.
 	
