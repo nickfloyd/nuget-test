@@ -13,13 +13,13 @@ This project also aims to provide the developer with a way to run the tests as p
 Basic usage
 -----------
 
-**NOTE**: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the [fixture apps]() requires that you run a **x86** PowerShell console in order for you to be able to load the module. The module is loaded via [Setup.ps1]() and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.
+**NOTE**: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the [fixture apps](https://github.com/nickfloyd/nuget-test/tree/master/fixtures) requires that you run a **x86** PowerShell console in order for you to be able to load the module. The module is loaded via [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1) and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.
 
 1 Clone the project into your package directory (where your .nuspec file and package files are).
 
     git clone http://github.com/nickfloyd/nuget-test.git
 
-2 Run [Setup.ps1]() in the root of the nuget-test directory in an **x86** instance of PowerShell.
+2 Run [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1) in the root of the nuget-test directory in an **x86** instance of PowerShell.
 	
 	PS> .\setup.ps1
 
@@ -65,9 +65,9 @@ These libraries are instrumental in getting this "framework" to actually work. S
 Requirements
 ------------
 - [PowerShell 2.0](http://msdn.microsoft.com/en-us/library/ff637750(v=azure.10).aspx) or greater (running x86 if you need to use the PackageManagement Cmdlets)
-- [Pester](https://github.com/pester/Pester) (added via [Setup.ps1]())
-- [PsGet](http://psget.net/) (dependency for Pester, added via [Setup.ps1]())
-- [PETools](https://github.com/mattifestation/PowerSploit) (if you need to dig into your compiled libraries, so on, added via [Setup.ps1]())
+- [Pester](https://github.com/pester/Pester) (added via [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1))
+- [PsGet](http://psget.net/) (dependency for Pester, added via [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1))
+- [PETools](https://github.com/mattifestation/PowerSploit) (if you need to dig into your compiled libraries, so on, added via [Setup.ps1](https://github.com/nickfloyd/nuget-test/blob/master/setup.ps1))
 - A nuget package to test
 
 Known Limitations
