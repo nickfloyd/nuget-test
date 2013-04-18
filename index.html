@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Nuget-test by nickfloyd</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Nuget-test</h1>
+        <h2>A PowerShell based testing framework that helps you test your nuget packages.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/nickfloyd/nuget-test/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/nickfloyd/nuget-test/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/nickfloyd/nuget-test" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>nuget-test</h1>
+
+<p>A PowerShell based testing framework that helps you test your <a href="http://nuget.org">nuget</a> packages.</p>
+
+<p>Testing your nuget packages can be difficult especially if you're trying to write tests to be run on build server where Visual Studio might not be installed and if
+you have my custom things built into your packages you'll need those things to be tested with iron-clad rules in a repeatable way. Running and verifying your nuget package in Visual Studio is not practical for you as a developer nor is it practical if you are trying to get to a <em>hands-free</em> deployment.</p>
+
+<p>The goal of this framework is to make testing your nuget packages easy by giving you the strengths of PowerShell and the elegance of <em>convention</em> and <em>testing semantics</em> provided by Pester.</p>
+
+<p>This project also aims to provide the developer with a way to run the tests as part of <a href="http://en.wikipedia.org/wiki/Continuous_delivery">CI / CD gates</a> on servers where Visual Studio is not installed.  This helps with assuring that what your Continuous Delivery server is pushing out the door is what you expect it to be pushing out the door.</p>
+
+<h2>Basic usage</h2>
+
+<p><strong>NOTE</strong>: The PackageManagement.Cmdlets.dll that is used to execute your nuget package against the <a href="">fixture apps</a> requires that you run a <strong>x86</strong> PowerShell console in order for you to be able to load the module. The module is loaded via <a href="">Setup.ps1</a> and can be commented out if you do not intend on executing your nuget package against a temp fixture application as a test.</p>
+
+<p>1 Clone the project into your package directory (where your .nuspec file and package files are).</p>
+
+<pre><code>git clone http://github.com/nickfloyd/nuget-test.git
+</code></pre>
+
+<p>2 Run <a href="">Setup.ps1</a> in the root of the nuget-test directory in an <strong>x86</strong> instance of PowerShell.</p>
+
+<pre><code>PS&gt; .\setup.ps1
+</code></pre>
+
+<p>3 Write tests and place them in the nuget-test/test directory using the <a href="https://github.com/pester/Pester">Pester</a> syntax. ex.</p>
+
+<pre><code>Context "When package exists" {
+    It "checks to see if content\my.config exists" {
+        (Test-Path $PackageRoot\content\my.config) | Should Be $true
+    }
+
+    It "checks to see if content\my.dll exists" {
+        (Test-Path $PackageRoot\content\my.dll) | Should Be $true
+    }
+
+    It "checks to see if content\my.dll is set to version 1.0.0" {
+        [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$PackageRoot\content\my.dll").FileVersion | Should be "1.0.0"
+    }
+}
+</code></pre>
+
+<p>4 Run the tests.</p>
+
+<pre><code>PS&gt; Invoke-Pester
+</code></pre>
+
+<h2>Real-world examples</h2>
+
+<p><a href="https://github.com/newrelic/nuget-azure-web-sites/tree/master/nuget.test">Nuget package for New Relic Azure Web Sites</a></p>
+
+<p><a href="https://github.com/newrelic/nuget-agent-api-x86">Nuget package for New Relic x86 API</a></p>
+
+<p><a href="https://github.com/newrelic/nuget-agent-api-x86">Nuget package for New Relic x64 API</a></p>
+
+<h2>Support Libraries</h2>
+
+<p>These libraries are instrumental in getting this "framework" to actually work. Special thanks to:</p>
+
+<ul>
+<li>
+<a href="https://github.com/pester/Pester">Pester</a> - a powerful testing framework for PowerShell</li>
+<li>
+<a href="https://github.com/icsharpcode/SharpDevelop/tree/master/src/AddIns/Misc/PackageManagement">SharpDevelop's package management module</a> - an amazing module that allows the developer to perform nuget commands outside of a Visual Studio instance</li>
+<li>
+<a href="https://github.com/mattifestation/PowerSploit">PowerSploit PETools</a> - modules that help developers verify and peer into managed and unmanaged code. </li>
+<li>
+<a href="http://nuget.org">Nuget</a> - Package management for for Visual Studio</li>
+</ul><h2>Requirements</h2>
+
+<ul>
+<li>
+<a href="http://msdn.microsoft.com/en-us/library/ff637750(v=azure.10">PowerShell 2.0</a>.aspx) or greater (running x86 if you need to use the PackageManagement Cmdlets)</li>
+<li>
+<a href="https://github.com/pester/Pester">Pester</a> (added via <a href="">Setup.ps1</a>)</li>
+<li>
+<a href="http://psget.net/">PsGet</a> (dependency for Pester, added via <a href="">Setup.ps1</a>)</li>
+<li>
+<a href="https://github.com/mattifestation/PowerSploit">PETools</a> (if you need to dig into your compiled libraries, so on, added via <a href="">Setup.ps1</a>)</li>
+<li>A nuget package to test</li>
+</ul><h2>Known Limitations</h2>
+
+<ul>
+<li>Currently if you want to run a package simulation using the PackageManagement Cmdlets you must be running in an x86 PowerShell console.</li>
+<li>It seems that the PackageManagement Cmdlets will only load Visual Studio projects / solutions version 2010 or lower, though there might be a new build that should be used that might allow 2012 projects / solutions to be used.</li>
+<li>Some $DTE functions do not always run as expected or will break when executed through the tests - more work needs to be done with this framework and $DTE to get better compatibility.</li>
+</ul><h2>Contribute</h2>
+
+<ol>
+<li><a href="https://help.github.com/articles/fork-a-repo">Fork the repository</a></li>
+<li>Add awesome code or fix an <a href="https://github.com/nickfloyd/nuget-test/issues">issue</a> with awesome code</li>
+<li>Submit a <a href="https://github.com/nickfloyd/nuget-test/pulls">pull request</a>
+</li>
+</ol>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
